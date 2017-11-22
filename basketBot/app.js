@@ -21,7 +21,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'jade');
 
-mongoose.connect('mongodb://localhost/test');
+/*mongoose.connect('mongodb://localhost/test');
 
 var j = schedule.scheduleJob('0 0 * * *', function(){
 
@@ -34,7 +34,7 @@ var j = schedule.scheduleJob('0 0 * * *', function(){
           })
         }
     });
-});
+});*/
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
