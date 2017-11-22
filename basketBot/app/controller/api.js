@@ -36,64 +36,11 @@ exports.handleMessage = function(req, res) {
             subscribeStatus(sender)
             break;
           default:
-            callWitAI(text, function(err, intent) {
-              handleIntent(intent, sender)
-            })
+            sendTextMessage(sender, "Hi!")
           }
   		}
     }
 	res.sendStatus(200);
-}
-
-function handleIntent(intent, sender) {
-  switch(intent) {
-    case "jokes":
-      sendTextMessage(sender, "Today a man knocked on my door and asked for a small donation towards the local swimming pool. I gave him a glass of water.")
-      break;
-    case "greeting":
-      sendTextMessage(sender, "Hi!")
-      break;
-    case "identification":
-      sendTextMessage(sender, "I'm Newsbot.")
-      break;
-    case "more news":
-      _getArticles(function(err, articles) {
-        if (err) {
-          console.log(err);
-        } else {
-          sendTextMessage(sender, "How about these?")
-          maxArticles = Math.min(articles.length, 5);
-          for (var i=0; i<maxArticles; i++) {
-            _sendArticleMessage(sender, articles[i])
-          }
-        }
-      })
-      break;
-    case "general news":
-      _getArticles(function(err, articles) {
-        if (err) {
-          console.log(err);
-        } else {
-          sendTextMessage(sender, "Here's what I found...")
-          _sendArticleMessage(sender, articles[0])
-        }
-      })
-      break;
-    case "local news":
-      _getArticles(function(err, articles) {
-        if (err) {
-          console.log(err);
-        } else {
-          sendTextMessage(sender, "I don't know local news yet, but I found these...")
-          _sendArticleMessage(sender, articles[0])
-        }
-      })
-      break;
-    default:
-      sendTextMessage(sender, "I'm not sure about that one :/")
-      break
-
-  }
 }
 
 function subscribeUser(id) {
@@ -140,24 +87,6 @@ function subscribeStatus(id) {
   })
 }
 
-function _getArticles(callback) {
-  rssReader(properties.google_news_endpoint, function(err, articles) {
-    if (err) {
-      callback(err)
-    } else {
-      if (articles.length > 0) {
-        callback(null, articles)
-      } else {
-        callback("no articles received")
-      }
-    }
-  })
-}
-
-exports.getArticles = function(callback) {
-	_getArticles(callback)
-}
-
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
@@ -192,57 +121,4 @@ function callSendAPI(messageData) {
       console.error(error);
     }
   });  
-}
-
-function _sendArticleMessage(sender, article) {
-  messageData = {
-    recipient: {
-      id: sender
-    },
-    message: {
-    attachment:{
-          type:"template",
-          payload:{
-            template_type:"generic",
-            elements:[
-              {
-                title:article.title,
-                subtitle: article.published.toString(),
-                item_url:article.link
-                }
-        ]
-        }
-        }
-      }
-  }
-  
-  callSendAPI(messageData)
-}
-
-function callWitAI(query, callback) {
-  query = encodeURIComponent(query);
-   request({
-    uri: properties.wit_endpoint+query,
-    qs: { access_token: properties.wit_token },
-    method: 'GET'
-  }, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log("Successfully got %s", response.body);
-      try {
-        body = JSON.parse(response.body)
-        intent = body["entities"]["Intent"][0]["value"]
-        callback(null, intent)
-      } catch (e) {
-        callback(e)
-      }
-    } else {
-      console.log(response.statusCode)
-      console.error("Unable to send message. %s", error);
-      callback(error)
-    }
-  });
-}
-
-exports.sendArticleMessage = function(sender, article) {
-  _sendArticleMessage(sender, article)
 }
