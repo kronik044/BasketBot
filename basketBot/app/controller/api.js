@@ -19,7 +19,7 @@ exports.handleMessage = function(req, res) {
 	for (i = 0; i < messaging_events.length; i++) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
-    senderName = event.first_name;
+    senderName = event.sender.first_name;
 		if (event.message && event.message.text) {
 		  	text = event.message.text;
 
@@ -37,11 +37,33 @@ exports.handleMessage = function(req, res) {
             subscribeStatus(sender)
             break;
           default:
+            getUserDetails(sender)
             sendTextMessage(sender, "Hi! "+senderName)
           }
   		}
     }
 	res.sendStatus(200);
+}
+
+function getUserDetails(id)  {
+  request({
+    uri: properties.facebook_api+id,
+    qs: { fields:'first_name,last_name',access_token: properties.facebook_token },
+    method: 'GET',
+    json: true
+
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var name = body.first_name
+
+      console.log("stufffrom getuser func", name);
+    } else {
+      console.log(response.statusCode)
+      console.error("Unable to send message.");
+      //console.error(response);
+      console.error(error);
+    }
+  });  
 }
 
 function subscribeUser(id) {
