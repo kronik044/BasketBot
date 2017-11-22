@@ -37,8 +37,7 @@ exports.handleMessage = function(req, res) {
             subscribeStatus(sender)
             break;
           default:
-            getUserDetails(sender)
-            sendTextMessage(sender, "Hi! "+senderName)
+            sendTextMessage(sender, "Hi! " + getUserDetails(sender))
           }
   		}
     }
@@ -55,12 +54,9 @@ function getUserDetails(id)  {
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var name = body.first_name
-
-      console.log("stufffrom getuser func", name);
+      return name;
     } else {
       console.log(response.statusCode)
-      console.error("Unable to send message.");
-      //console.error(response);
       console.error(error);
     }
   });  
