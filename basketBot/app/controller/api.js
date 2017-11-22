@@ -20,6 +20,7 @@ exports.handleMessage = function(req, res) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
     senderName = getUserDetails(sender);
+    console.log("from Handle " + senderName)
 		if (event.message && event.message.text) {
 		  	text = event.message.text;
 
@@ -55,6 +56,7 @@ function getUserDetails(id)  {
     if (!error && response.statusCode == 200) {
       var name = body.first_name
       return name;
+      console.log("From GetUserDetails " + name)
     } else {
       console.log(response.statusCode)
       console.error(error);
