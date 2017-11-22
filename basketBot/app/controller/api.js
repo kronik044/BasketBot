@@ -19,7 +19,7 @@ exports.handleMessage = function(req, res) {
 	for (i = 0; i < messaging_events.length; i++) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
-    senderName = event.sender.first_name;
+    senderName = getUserDetails(sender);
 		if (event.message && event.message.text) {
 		  	text = event.message.text;
 
@@ -37,7 +37,7 @@ exports.handleMessage = function(req, res) {
             subscribeStatus(sender)
             break;
           default:
-            sendTextMessage(sender, "Hi! " + getUserDetails(sender))
+            sendTextMessage(sender, "Hi! " + senderName)
           }
   		}
     }
