@@ -37,7 +37,7 @@ exports.handleMessage = function(req, res) {
             break;
           default:
             sendTextMessage(sender, "Hi! ")
-            getUserDetails(sender)
+            getUserDetails(sender);
           }
   		}
     }
@@ -55,8 +55,7 @@ function getUserDetails(id)  {
     if (!error && response.statusCode == 200) {
       var name = body.first_name
       var lastName = body.last_name
-      return name;
-      console.log("From GetUserDetails " + name + " " + lastName)
+      console.log("From GetUserDetails " + name + " " + lastName);
     } else {
       console.log(response.statusCode)
       console.error(error);
