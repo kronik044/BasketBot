@@ -37,14 +37,14 @@ exports.handleMessage = function(req, res) {
             break;
           default:
             sendTextMessage(sender, "Hi! ")
-            getUserDetails(sender);
+            getUserDetails(sender, sendTextMessage());
           }
   		}
     }
 	res.sendStatus(200);
 }
 
-function getUserDetails(id)  {
+function getUserDetails(id, callback)  {
   request({
     uri: properties.facebook_api+id,
     qs: { fields:'first_name,last_name',access_token: properties.facebook_token },
@@ -56,6 +56,7 @@ function getUserDetails(id)  {
       var name = body.first_name
       var lastName = body.last_name
       console.log("From GetUserDetails " + name + " " + lastName);
+      callback();
     } else {
       console.log(response.statusCode)
       console.error(error);
