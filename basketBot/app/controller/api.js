@@ -19,8 +19,6 @@ exports.handleMessage = function(req, res) {
 	for (i = 0; i < messaging_events.length; i++) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
-    senderName = getUserDetails(sender);
-    console.log("from Handle " + senderName)
 		if (event.message && event.message.text) {
 		  	text = event.message.text;
 
@@ -38,7 +36,8 @@ exports.handleMessage = function(req, res) {
             subscribeStatus(sender)
             break;
           default:
-            sendTextMessage(sender, "Hi! " + senderName)
+            sendTextMessage(sender, "Hi! ")
+            getUserDetails(sender)
           }
   		}
     }
@@ -55,8 +54,9 @@ function getUserDetails(id)  {
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var name = body.first_name
+      var lastName = body.last_name
       return name;
-      console.log("From GetUserDetails " + name)
+      console.log("From GetUserDetails " + name + " " + lastName)
     } else {
       console.log(response.statusCode)
       console.error(error);
