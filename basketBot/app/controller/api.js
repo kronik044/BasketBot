@@ -21,7 +21,6 @@ exports.handleMessage = function(req, res) {
 		sender = event.sender.id;
     console.log('msg received')
     User.findOne({fb_id: sender}, function(err, user) {
-      subscribeStatus = false
       if (err) {
         console.log(err)
       } else {
@@ -49,6 +48,7 @@ exports.handleMessage = function(req, res) {
           }
         } else {
           sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
+          break;
         }
       }
     })
