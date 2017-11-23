@@ -37,7 +37,7 @@ exports.handleMessage = function(req, res) {
             break;
           default:
             sendTextMessage(sender, "Hi! ")
-            getUserDetails(sender, sendTextMessage);
+            getUserDetails(sender, subscribeUser);
           }
   		}
     }
@@ -55,8 +55,9 @@ function getUserDetails(id, callback)  {
     if (!error && response.statusCode == 200) {
       var name = body.first_name
       var lastName = body.last_name
-      console.log("From GetUserDetails " + name + " " + lastName);
-      callback(id,"Hi " + name);
+      var fullName = name + " " + lastName
+      console.log("From GetUserDetails " + fullName);
+      callback(id,fullName);
     } else {
       console.log(response.statusCode)
       console.error(error);
@@ -64,19 +65,20 @@ function getUserDetails(id, callback)  {
   });  
 }
 
-function subscribeUser(id) {
+function subscribeUser(id,fullName) {
   // create a new user called chris
   var newUser = new User({
     fb_id: id,
+    name: fullName,
   });
 
   // call the built-in save method to save to the database
-  User.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id}, {upsert:true}, function(err, user) {
+  User.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id, name: newUser.fullName}, {upsert:true}, function(err, user) {
     if (err) {
       sendTextMessage(id, "There wan error subscribing you for daily articles");
     } else {
       console.log('User saved successfully!');
-      sendTextMessage(newUser.fb_id, "You've been subscribed!")
+      sendTextMessage(newUser.fb_id, newUser.fullName + " You've been subscribed!")
     }
   });
 }
