@@ -69,7 +69,7 @@ function subscribeUser(id,fullName) {
   // create a new user called chris
   var newUser = new User({
     fb_id: id,
-    name: fullName,
+    name: fullName
   });
 
   // call the built-in save method to save to the database
