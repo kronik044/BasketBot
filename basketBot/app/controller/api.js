@@ -47,8 +47,19 @@ exports.handleMessage = function(req, res) {
             }
           }
         } else {
-          sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
-          break;
+          if (event.message && event.message.text) {
+            text = event.message.text;
+            normalizedText = text.toLowerCase().replace(' ', '');
+
+            switch(normalizedText) {
+              case "pass":
+                subscribeUser(sender)
+                break;
+              default:
+                sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
+                break;
+            }
+          }
         }
       }
     })
