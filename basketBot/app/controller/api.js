@@ -56,7 +56,7 @@ function getUserDetails(id, callback)  {
       var name = body.first_name
       var lastName = body.last_name
       console.log("From GetUserDetails " + name + " " + lastName);
-      callback();
+      callback(id,"Hi " + name);
     } else {
       console.log(response.statusCode)
       console.error(error);
