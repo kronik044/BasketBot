@@ -19,12 +19,50 @@ exports.handleMessage = function(req, res) {
 	for (i = 0; i < messaging_events.length; i++) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
-		if (event.message && event.message.text) {
-		  	text = event.message.text;
+    if (subscribeStatus(sender) = true) {
+        if (event.message && event.message.text) {
+            text = event.message.text;
+
+            normalizedText = text.toLowerCase().replace(' ', '');
+            
+            // Handle a text message from this sender
+            switch(normalizedText) {
+              case "/subscribe":
+                subscribeUser(sender)
+                break;
+              case "/unsubscribe":
+                unsubscribeUser(sender)
+                break;
+              case "/subscribestatus":
+                subscribeStatus(sender)
+                break;
+              default:
+                sendTextMessage(sender, "Hi! ")
+                //getUserDetails(sender, subscribeUser)
+              }
+          } else {
+            sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
+          }
+
+    }
+
+		
+    }
+	res.sendStatus(200);
+}
+
+/*
+exports.handleMessage = function(req, res) {
+  messaging_events = req.body.entry[0].messaging;
+  for (i = 0; i < messaging_events.length; i++) {
+    event = req.body.entry[0].messaging[i];
+    sender = event.sender.id;
+    if (event.message && event.message.text) {
+        text = event.message.text;
 
         normalizedText = text.toLowerCase().replace(' ', '');
         
-		  	// Handle a text message from this sender
+        // Handle a text message from this sender
         switch(normalizedText) {
           case "/subscribe":
             subscribeUser(sender)
@@ -37,12 +75,12 @@ exports.handleMessage = function(req, res) {
             break;
           default:
             sendTextMessage(sender, "Hi! ")
-            getUserDetails(sender, subscribeUser)
+            //getUserDetails(sender, subscribeUser)
           }
-  		}
+      }
     }
-	res.sendStatus(200);
-}
+  res.sendStatus(200);
+}*/
 
 function getUserDetails(id, callback)  {
   request({
@@ -107,11 +145,25 @@ function subscribeStatus(id) {
       if (user != null) {
         subscribeStatus = true
       }
+      return subscribeStatus;
+    }
+  })
+}
+
+/*function subscribeStatus(id) {
+  User.findOne({fb_id: id}, function(err, user) {
+    subscribeStatus = false
+    if (err) {
+      console.log(err)
+    } else {
+      if (user != null) {
+        subscribeStatus = true
+      }
       subscribedText = "Your subscribed status is " + subscribeStatus
       sendTextMessage(id, subscribedText)
     }
   })
-}
+}*/
 
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
