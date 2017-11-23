@@ -33,7 +33,7 @@ exports.handleMessage = function(req, res) {
           // Handle a text message from this sender
           switch(normalizedText) {
             case "/subscribe":
-              subscribeUser(sender)
+              getUserDetails(sender, subscribeUser)
               break;
             case "/unsubscribe":
               unsubscribeUser(sender)
@@ -161,25 +161,11 @@ function subscribeStatus(id) {
       if (user != null) {
         subscribeStatus = true
       }
-      return subscribeStatus
-    }
-  })
-}
-
-/*function subscribeStatus(id) {
-  User.findOne({fb_id: id}, function(err, user) {
-    subscribeStatus = false
-    if (err) {
-      console.log(err)
-    } else {
-      if (user != null) {
-        subscribeStatus = true
-      }
       subscribedText = "Your subscribed status is " + subscribeStatus
       sendTextMessage(id, subscribedText)
     }
   })
-}*/
+}
 
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
