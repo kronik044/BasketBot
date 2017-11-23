@@ -37,7 +37,7 @@ exports.handleMessage = function(req, res) {
             break;
           default:
             sendTextMessage(sender, "Hi! ")
-            getUserDetails(sender, sendTextMessage());
+            getUserDetails(sender, sendTextMessage);
           }
   		}
     }
