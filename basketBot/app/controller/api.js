@@ -66,14 +66,16 @@ function getUserDetails(id, callback)  {
 }
 
 function subscribeUser(id,fullName) {
+  console.log('subscribe execution started');
   // create a new user called chris
   var newUser = new User({
     fb_id: id,
     name: fullName
   });
+  console.log('after constr' + newUser.name);
 
   // call the built-in save method to save to the database
-  User.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id, name: newUser.fullName}, {upsert:true}, function(err, user) {
+  User.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id, name: newUser.name}, {upsert:true}, function(err, user) {
     if (err) {
       sendTextMessage(id, "There wan error subscribing you for daily articles");
     } else {
