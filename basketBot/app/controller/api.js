@@ -145,7 +145,7 @@ function subscribeStatus(id) {
       if (user != null) {
         subscribeStatus = true
       }
-      return subscribeStatus;
+      return subscribeStatus
     }
   })
 }
