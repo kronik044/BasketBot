@@ -20,33 +20,38 @@ exports.handleMessage = function(req, res) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
     console.log('msg received')
-    if (subscribeStatus(sender)) {
-      console.log('got here - sendervalid')
-        if (event.message && event.message.text) {
-            text = event.message.text;
+    User.findOne({fb_id: sender}, function(err, user) {
+      subscribeStatus = false
+      if (err) {
+        console.log(err)
+      } else {
+        if (user != null) {
+          if (event.message && event.message.text) {
+          text = event.message.text;
 
-            normalizedText = text.toLowerCase().replace(' ', '');
-            
-            // Handle a text message from this sender
-            switch(normalizedText) {
-              case "/subscribe":
-                subscribeUser(sender)
-                break;
-              case "/unsubscribe":
-                unsubscribeUser(sender)
-                break;
-              case "/subscribestatus":
-                subscribeStatus(sender)
-                break;
-              default:
-                sendTextMessage(sender, "Hi! ")
-                //getUserDetails(sender, subscribeUser)
-              }
-          } else {
-            console.log('got there - sender ivalid')
-            sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
+          normalizedText = text.toLowerCase().replace(' ', '');
+          
+          // Handle a text message from this sender
+          switch(normalizedText) {
+            case "/subscribe":
+              subscribeUser(sender)
+              break;
+            case "/unsubscribe":
+              unsubscribeUser(sender)
+              break;
+            case "/subscribestatus":
+              subscribeStatus(sender)
+              break;
+            default:
+              sendTextMessage(sender, "Hi! ")
+              //getUserDetails(sender, subscribeUser)
+            }
           }
-    }
+        } else {
+          sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
+        }
+      }
+    })
   }
 	res.sendStatus(200);
 }
