@@ -20,6 +20,7 @@ exports.handleMessage = function(req, res) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
     if (subscribeStatus(sender)) {
+      console.log('got here - sendervalid');
         if (event.message && event.message.text) {
             text = event.message.text;
 
@@ -41,6 +42,7 @@ exports.handleMessage = function(req, res) {
                 //getUserDetails(sender, subscribeUser)
               }
           } else {
+            console.log('got there - sender ivalid');
             sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
           }
 
