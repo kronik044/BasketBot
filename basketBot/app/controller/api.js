@@ -53,7 +53,7 @@ exports.handleMessage = function(req, res) {
 
             switch(normalizedText) {
               case "pass":
-                subscribeUser(sender)
+                getUserDetails(sender, subscribeUser)
                 break;
               default:
                 sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
