@@ -37,7 +37,7 @@ exports.handleMessage = function(req, res) {
             break;
           default:
             sendTextMessage(sender, "Hi! ")
-            getUserDetails(sender, subscribeUser);
+            getUserDetails(sender, subscribeUser)
           }
   		}
     }
@@ -78,7 +78,8 @@ function subscribeUser(id,fullName) {
       sendTextMessage(id, "There wan error subscribing you for daily articles");
     } else {
       console.log('User saved successfully!');
-      sendTextMessage(newUser.fb_id, newUser.fullName + " You've been subscribed!")
+      subscribedText = newUser.fullName + " You've been subscribed!"
+      sendTextMessage(newUser.fb_id, subscribedText)
     }
   });
 }
