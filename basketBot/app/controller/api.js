@@ -80,7 +80,7 @@ function subscribeUser(id,fullName) {
       sendTextMessage(id, "There wan error subscribing you for daily articles");
     } else {
       console.log('User saved successfully!');
-      subscribedText = newUser.fullName + " You've been subscribed!"
+      subscribedText = newUser.name + " You've been subscribed!"
       sendTextMessage(newUser.fb_id, subscribedText)
     }
   });

@@ -21,7 +21,12 @@ var app = express();
 app.set('views', path.join(__dirname, 'app', 'views'));
 app.set('view engine', 'jade');
 
-mongoose.connect('mongodb://localhost/test');
+//mongoose.connect('mongodb://localhost/test');
+
+mongoose.connect('mongodb://localhost/test', {
+  useMongoClient: true,
+});
+
 
 /*
 var j = schedule.scheduleJob('0 0 * * *', function(){
