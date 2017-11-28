@@ -31,10 +31,10 @@ exports.handleMessage = function(req, res) {
           
           // Handle a text message from this sender
           switch(normalizedText) {
-            case "/subscribe":
+            case "/subs":
               getUserDetails(sender, subscribeUser)
               break;
-            case "/unsubscribe":
+            case "/unsub":
               unsubscribeUser(sender)
               break;
             case "/subscribestatus":
@@ -120,7 +120,7 @@ function getUserDetails(id, callback)  {
 
 function subscribeUser(id,fullName) {
   console.log('subscribe execution started');
-  // create a new user called chris
+  // create a new user
   var newUser = new User({
     fb_id: id,
     name: fullName
@@ -128,7 +128,7 @@ function subscribeUser(id,fullName) {
   console.log('after constr' + newUser.name);
 
   // call the built-in save method to save to the database
-  User.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id, name: newUser.name}, {upsert:true}, function(err, user) {
+  User.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id, name: newUser.name, sub_status: true}, {upsert:true}, function(err, user) {
     if (err) {
       sendTextMessage(id, "There wan error subscribing you for daily articles");
     } else {
@@ -141,7 +141,8 @@ function subscribeUser(id,fullName) {
 
 function unsubscribeUser(id) {
   // call the built-in save method to save to the database
-  User.findOneAndRemove({fb_id: id}, function(err, user) {
+  //User.findOneAndRemove({fb_id: id}, function(err, user) {
+   User.findOneAndUpdate({fb_id: newUser.fb_id}, {sub_status: true}, function(err, user) { 
     if (err) {
       sendTextMessage(id, "There wan error unsubscribing you for daily articles");
     } else {
