@@ -18,7 +18,6 @@ exports.handleMessage = function(req, res) {
 	for (i = 0; i < messaging_events.length; i++) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
-    console.log('msg received')
     User.findOne({fb_id: sender}, function(err, user) {
       if (err) {
         console.log(err)
@@ -37,8 +36,11 @@ exports.handleMessage = function(req, res) {
             case "/unsub":
               unsubscribeUser(sender)
               break;
-            case "/subscribestatus":
+            case "/substatus":
               subscribeStatus(sender)
+              break;
+            case "help":
+              sendTextMessage(sender, "Available commands /subs - will \n subscribe you for noyifications \n\r balh \u000A lol")
               break;
             default:
               sendTextMessage(sender, "Hi! ")
@@ -130,7 +132,7 @@ function subscribeUser(id,fullName) {
   // call the built-in save method to save to the database
   User.findOneAndUpdate({fb_id: newUser.fb_id}, {fb_id: newUser.fb_id, name: newUser.name, sub_status: true}, {upsert:true}, function(err, user) {
     if (err) {
-      sendTextMessage(id, "There wan error subscribing you for daily articles");
+      sendTextMessage(id, "There wan error subscribing you");
     } else {
       console.log('User saved successfully!');
       subscribedText = newUser.name + " You've been subscribed!"
@@ -140,13 +142,11 @@ function subscribeUser(id,fullName) {
 }
 
 function unsubscribeUser(id) {
-  // call the built-in save method to save to the database
-  //User.findOneAndRemove({fb_id: id}, function(err, user) {
-   User.findOneAndUpdate({fb_id: id}, {sub_status: true}, function(err, user) { 
+  //set sub_status to false
+   User.findOneAndUpdate({fb_id: id}, {sub_status: false}, function(err, user) { 
     if (err) {
-      sendTextMessage(id, "There wan error unsubscribing you for daily articles");
+      sendTextMessage(id, "There wan error unsubscribing you.");
     } else {
-      console.log('User deleted successfully!');
       sendTextMessage(id, "You've been unsubscribed!")
     }
   });
