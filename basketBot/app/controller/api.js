@@ -142,7 +142,7 @@ function subscribeUser(id,fullName) {
 function unsubscribeUser(id) {
   // call the built-in save method to save to the database
   //User.findOneAndRemove({fb_id: id}, function(err, user) {
-   User.findOneAndUpdate({fb_id: newUser.fb_id}, {sub_status: true}, function(err, user) { 
+   User.findOneAndUpdate({fb_id: id}, {sub_status: true}, function(err, user) { 
     if (err) {
       sendTextMessage(id, "There wan error unsubscribing you for daily articles");
     } else {
