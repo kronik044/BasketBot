@@ -7,10 +7,9 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   name: String,
   fb_id: { type: String, required: true, unique: true },
-  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 },
 {
-  timestamps: true
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
 // the schema is useless so far
