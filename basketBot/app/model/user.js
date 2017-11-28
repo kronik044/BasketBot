@@ -7,15 +7,17 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   name: String,
   fb_id: { type: String, required: true, unique: true },
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now }
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+},
+{
+  timestamps: true
 });
 
 // the schema is useless so far
 // we need to create a model using it
 var User = mongoose.model('User', userSchema);
 
-userSchema.pre('update', function(next) {
+/*userSchema.pre('update', function(next) {
   console.log('pre save')
   // get the current date
   var currentDate = new Date();
@@ -28,7 +30,7 @@ userSchema.pre('update', function(next) {
     this.created_at = currentDate;
 
   next();
-});
+});*/
 
 // make this available to our users in our Node applications
 module.exports = User;
