@@ -1,6 +1,5 @@
 //api.js
 var request = require('request');
-var rssReader = require('feed-read');
 var properties = require('../config/properties.js')
 
 // if our user.js file is at app/models/user.js
