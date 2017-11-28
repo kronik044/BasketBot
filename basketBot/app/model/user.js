@@ -7,8 +7,8 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   name: String,
   fb_id: { type: String, required: true, unique: true },
-  created_at: Date,
-  updated_at: Date
+  created_at: { type: Date, default: Date.now },
+  updated_at: { type: Date, default: Date.now }
 });
 
 // the schema is useless so far
