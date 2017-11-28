@@ -16,6 +16,7 @@ var userSchema = new Schema({
 var User = mongoose.model('User', userSchema);
 
 userSchema.pre('findOneAndUpdate', function(next) {
+  console.log('pre save');
   // get the current date
   var currentDate = new Date();
   
