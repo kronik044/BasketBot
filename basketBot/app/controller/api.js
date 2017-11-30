@@ -42,7 +42,7 @@ exports.handleMessage = function(req, res) {
               subscribeStatus(sender)
               break;
             case "ok":
-              nextSession(sender)
+              signForSession(sender)
               break;
             case "help":
               sendTextMessage(sender, "Available commands: \n \
@@ -123,15 +123,22 @@ function nextSession(id) {
     //return ret;
 }
 
-function signForSession (id, date) {
+function signForSession (id) {
   console.log("SessionSaver cal started");
-  var dd = new Date();
+  var ret = new Date();
+  ret.setHours(0, 0, 0, 0);
+    console.log("ret aterset hours " + ret);
+    if (ret.getDay() == 4) {
+      return ret;
+    } else {
+      ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
+    }
   var newSession = new Session ({
     fb_id: id,
     name: "Test_Name",
     session_type: "Basket",
     players: 3,
-    session_date: date
+    session_date: ret
   });
 
   Session.findOneAndUpdate({fb_id: newSession.fb_id}, {fb_id: newSession.fb_id, name: newSession.name, session_type: newSession.session_type, players: newSession.players, session_date: newSession.session_date}, {upsert:true}, function(err, user) {
