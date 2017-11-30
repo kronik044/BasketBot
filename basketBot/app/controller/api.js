@@ -41,6 +41,9 @@ exports.handleMessage = function(req, res) {
             case "/substatus":
               subscribeStatus(sender)
               break;
+            case "/1":
+              signForSession(sender)
+              break;
             case "help":
               sendTextMessage(sender, "Available commands: \n \
                 /subs - to reactivate your subscription \n \
@@ -104,6 +107,40 @@ exports.handleMessage = function(req, res) {
     }
   res.sendStatus(200);
 }*/
+
+function nextSession(date) {
+    var ret = new Date(date||new Date());
+    ret.setHours(0, 0, 0, 0);
+    if (ret.getDay() == 4) {
+      return ret;
+    } else {
+      ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
+    }
+    
+    return ret;
+}
+
+function signForSession (id) {
+  console.log("SessionSaver cal started");
+  var newSession = new Session ({
+    fb_id: id,
+    name: "Test_Name",
+    session_type: "Basket",
+    players: 3
+    session_date: nextSession()
+  });
+
+
+  Session.findOneAndUpdate({fb_id: newSession.fb_id}, {fb_id: newSession.fb_id, name: newSession.name, session_type: newSession.session_type, players: newSession.players, session_date: newSession.session_date}, {upsert:true}, function(err, user) {
+    if (err) {
+      console.error("Unable save sessions");
+    } else {
+      console.log('Session saved successfully!');
+      sendTextMessage(newSession.id, "You've been signedup!")
+    }
+  });
+}
+
 
 function getUserDetails(id, callback)  {
   request({

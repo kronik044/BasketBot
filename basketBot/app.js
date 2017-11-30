@@ -29,7 +29,9 @@ mongoose.connect('mongodb://localhost/test', {
 });
 
 
- User.findOneAndUpdate({fb_id: "test_id"}, {fb_id: "test_id", name: "User_test_name", sub_status: true}, {upsert:true}, function(err, user) {
+/* 
+This code was used for tests of schemas. remove later
+User.findOneAndUpdate({fb_id: "test_id"}, {fb_id: "test_id", name: "User_test_name", sub_status: true}, {upsert:true}, function(err, user) {
     if (err) {
       console.error("Unable save user to users");
     } else {
@@ -47,7 +49,9 @@ function testInsert () {
       console.log('Session saved successfully!');
     }
   });
-}
+}*/
+
+
 /*
 var j = schedule.scheduleJob('0 0 * * *', function(){
 
