@@ -173,7 +173,6 @@ function subscribeStatus(id) {
 
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
-    messaging_type: "RESPONSE",
     recipient: {
       id: recipientId
     },
