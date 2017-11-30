@@ -109,7 +109,7 @@ exports.handleMessage = function(req, res) {
 }*/
 
 function nextSession(id, callback) {
-    var ret = new Date(date||new Date());
+    var ret = new Date();
     ret.setHours(0, 0, 0, 0);
     if (ret.getDay() == 4) {
       return ret;
