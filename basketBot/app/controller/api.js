@@ -42,7 +42,7 @@ exports.handleMessage = function(req, res) {
               subscribeStatus(sender)
               break;
             case "/1":
-              signForSession(sender)
+              nextSession(sender,signForSession)
               break;
             case "help":
               sendTextMessage(sender, "Available commands: \n \
@@ -108,7 +108,7 @@ exports.handleMessage = function(req, res) {
   res.sendStatus(200);
 }*/
 
-function nextSession(date) {
+function nextSession(id, callback) {
     var ret = new Date(date||new Date());
     ret.setHours(0, 0, 0, 0);
     if (ret.getDay() == 4) {
@@ -116,11 +116,11 @@ function nextSession(date) {
     } else {
       ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
     }
-    
-    return ret;
+    callback(id,ret);
+    //return ret;
 }
 
-function signForSession (id) {
+function signForSession (id, date) {
   console.log("SessionSaver cal started");
   var dd = new Date();
   var newSession = new Session ({
@@ -128,9 +128,8 @@ function signForSession (id) {
     name: "Test_Name",
     session_type: "Basket",
     players: 3
-    session_date: dd
+    session_date: date
   });
-
 
   Session.findOneAndUpdate({fb_id: newSession.fb_id}, {fb_id: newSession.fb_id, name: newSession.name, session_type: newSession.session_type, players: newSession.players, session_date: newSession.session_date}, {upsert:true}, function(err, user) {
     if (err) {
