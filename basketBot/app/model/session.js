@@ -8,7 +8,7 @@ var sessionSchema = new Schema({
   fb_id: {type: String, required: true},
   name: {type: String, required: true},
   session_type: {type: String, required: true},
-  session_date: {type: Date},
+  session_date: {type: Date, required: true},
   players: {type: Number}
 },
 {
@@ -16,7 +16,7 @@ var sessionSchema = new Schema({
 });
 
 
-sessionSchema.index({ "name" : 1, "organization" : 1 }, { unique : true });
+sessionSchema.index({ "fb_id" : 1, "session_date" : 1, "session_type": 1}, { unique : true });
 // the schema is useless so far
 // we need to create a model using it
 var Session = mongoose.model('Session', sessionSchema);
