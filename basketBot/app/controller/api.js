@@ -147,7 +147,7 @@ function signForSession (id) {
       console.error("Unable save sessions");
     } else {
       console.log('Session saved successfully!');
-      sendTextMessage(newSession.id, "You've been signedup!")
+      sendTextMessage(newSession.fb_id, "You've been signedup!")
     }
   });
 }
