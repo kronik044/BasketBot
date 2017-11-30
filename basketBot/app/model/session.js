@@ -16,7 +16,7 @@ var sessionSchema = new Schema({
 });
 
 
-sessionSchema.index({ "fb_id" : 1, "session_date" : 1, "session_type": 1}, { unique : true });
+sessionSchema.index({ "fb_id": 1, "session_date": 1, "session_type": 1}, { unique: true });
 // the schema is useless so far
 // we need to create a model using it
 var Session = mongoose.model('Session', sessionSchema);
