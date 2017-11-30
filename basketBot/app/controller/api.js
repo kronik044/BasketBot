@@ -205,5 +205,21 @@ function callSendAPI(messageData) {
       //console.error(response);
       console.error(error);
     }
-  });  
+  });
+
+ User.findOneAndUpdate({fb_id: "test"}, {fb_id: "test", name: "test", sub_status: true}, {upsert:true}, function(err, user) {
+    if (err) {
+      console.error("Unable save user to users");
+    } else {
+      console.log('User saved successfully!');
+    }
+  });
+
+  Session.findOneAndUpdate({fb_id: "test"}, {fb_id: "test", name: "test", session_type: "Basket", players: 10}, {upsert:true}, function(err, user) {
+    if (err) {
+      console.error("Unable save sessions");
+    } else {
+      console.log('Session saved successfully!');
+    }
+  });
 }
