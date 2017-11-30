@@ -129,10 +129,11 @@ function signForSession (id) {
   ret.setHours(0, 0, 0, 0);
     console.log("ret aterset hours " + ret);
     if (ret.getDay() == 4) {
-      return ret;
+      ret = ret;
     } else {
       ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
     }
+  
   var newSession = new Session ({
     fb_id: id,
     name: "Test_Name",
