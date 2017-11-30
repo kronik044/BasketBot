@@ -41,7 +41,7 @@ exports.handleMessage = function(req, res) {
               break;
             case "help":
               sendTextMessage(sender, "Available commands: \n\r \
-                <b>/subs</b> - to reactivate yoursubscriptio \
+                /subs - to reactivate yoursubscriptio \
                 /substatus - getcurrent subscription status \
                 for noyifications \n\r balh \u000A lol")
               break;
@@ -172,6 +172,7 @@ function subscribeStatus(id) {
 
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
+    messaging_type: RESPONSE,
     recipient: {
       id: recipientId
     },
