@@ -15,6 +15,8 @@ var sessionSchema = new Schema({
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
+
+sessionSchema.index({ "name" : 1, "organization" : 1 }, { unique : true });
 // the schema is useless so far
 // we need to create a model using it
 var Session = mongoose.model('Session', sessionSchema);
