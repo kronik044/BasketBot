@@ -42,10 +42,7 @@ exports.handleMessage = function(req, res) {
               subscribeStatus(sender)
               break;
             case "ok":
-              var kok = new Date();
-              console.log(kok);
-              console.log(kok.toString());
-              nextSession(sender, signForSession)
+              nextSession(sender)
               break;
             case "help":
               sendTextMessage(sender, "Available commands: \n \
@@ -111,16 +108,18 @@ exports.handleMessage = function(req, res) {
   res.sendStatus(200);
 }*/
 
-function nextSession(id, callback) {
+function nextSession(id) {
     var ret = new Date();
+    console.log("Initiated nextSession func");
+    console.log("ret is equal to " + ret);
     ret.setHours(0, 0, 0, 0);
+    console.log("ret aterset hours " + ret);
     if (ret.getDay() == 4) {
       return ret;
     } else {
       ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
     }
     console.log("nextSession prc " + id + "date " + ret.toString())
-    callback(id,ret);
     //return ret;
 }
 
