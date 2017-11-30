@@ -15,7 +15,7 @@ var userSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var User = mongoose.model('User', userSchema, 'users');
+var User = mongoose.model('User', userSchema);
 
 /*userSchema.pre('update', function(next) {
   console.log('pre save')
