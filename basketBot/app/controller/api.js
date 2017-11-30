@@ -41,8 +41,8 @@ exports.handleMessage = function(req, res) {
             case "/substatus":
               subscribeStatus(sender)
               break;
-            case "/1":
-              nextSession(sender,signForSession)
+            case "ok":
+              nextSession(sender, signForSession)
               break;
             case "help":
               sendTextMessage(sender, "Available commands: \n \
