@@ -29,7 +29,7 @@ mongoose.connect('mongodb://localhost/test', {
 });
 
 
- User.findOneAndUpdate({fb_id: "test"}, {fb_id: "test", name: "test", sub_status: true}, {upsert:true}, function(err, user) {
+ User.findOneAndUpdate({fb_id: "test_id"}, {fb_id: "test_id", name: "User_test_name", sub_status: true}, {upsert:true}, function(err, user) {
     if (err) {
       console.error("Unable save user to users");
     } else {
@@ -37,7 +37,7 @@ mongoose.connect('mongodb://localhost/test', {
     }
   });
 
-  Session.findOneAndUpdate({fb_id: "test"}, {fb_id: "test", name: "test", session_type: "Basket", players: 10}, {upsert:true}, function(err, user) {
+  Session.findOneAndUpdate({fb_id: "test_id"}, {fb_id: "test_id", name: "Session_test_name", session_type: "Basket", players: 10}, {upsert:true}, function(err, user) {
     if (err) {
       console.error("Unable save sessions");
     } else {
