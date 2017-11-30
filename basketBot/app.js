@@ -40,7 +40,7 @@ mongoose.connect('mongodb://localhost/test', {
 
 
 function testInsert () {
-  Session.findOneAndUpdate({fb_id: "test_id"}, {fb_id: "test_id", name: "Session_test_name", session_type: "Basket", players: 10}, {upsert:true}, function(err, user) {
+  Session.findOneAndUpdate({fb_id: "test_id_2"}, {fb_id: "test_id_2", name: "Session_test_name_2", session_type: "Basket", players: 5}, {upsert:true}, function(err, user) {
     if (err) {
       console.error("Unable save sessions");
     } else {

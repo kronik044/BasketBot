@@ -42,10 +42,11 @@ exports.handleMessage = function(req, res) {
               subscribeStatus(sender)
               break;
             case "help":
-              sendTextMessage(sender, "Available commands: \n\r \
-                /subs - to reactivate yoursubscriptio \
-                /substatus - getcurrent subscription status \
-                for noyifications \n\r balh \u000A lol")
+              sendTextMessage(sender, "Available commands: \n \
+                /subs - to reactivate your subscription \n \
+                /substatus - get current subscription status \
+                /unsub - deactivate subscription (no autoreminders) \n \
+                something else here ")
               break;
             default:
               sendTextMessage(sender, "Hi! ")

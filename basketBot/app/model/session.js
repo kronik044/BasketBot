@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 //create schema for sessions
 var sessionSchema = new Schema({
   fb_id: {type: String, required: true},
-  name: String,
+  name: {type: String, required: true},
   session_type: {type: String, required: true},
   session_date: {type: Date},
   players: {type: Number}
