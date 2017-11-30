@@ -127,7 +127,7 @@ function signForSession (id, date) {
     fb_id: id,
     name: "Test_Name",
     session_type: "Basket",
-    players: 3
+    players: 3,
     session_date: date
   });
 
