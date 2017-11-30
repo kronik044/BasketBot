@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 
 var schedule = require('node-schedule');
 var User = require('./app/model/user');
+var Session = require('./app/model/user');
 var apiController = require('./app/controller/api');
 
 var routes = require('./app/routes/index');
@@ -28,6 +29,21 @@ mongoose.connect('mongodb://localhost/test', {
 });
 
 
+ User.findOneAndUpdate({fb_id: "test"}, {fb_id: "test", name: "test", sub_status: true}, {upsert:true}, function(err, user) {
+    if (err) {
+      console.error("Unable save user to users");
+    } else {
+      console.log('User saved successfully!');
+    }
+  });
+
+  Session.findOneAndUpdate({fb_id: "test"}, {fb_id: "test", name: "test", session_type: "Basket", players: 10}, {upsert:true}, function(err, user) {
+    if (err) {
+      console.error("Unable save sessions");
+    } else {
+      console.log('Session saved successfully!');
+    }
+  });
 /*
 var j = schedule.scheduleJob('0 0 * * *', function(){
 
