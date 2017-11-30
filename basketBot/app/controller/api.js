@@ -116,7 +116,7 @@ function nextSession(id) {
     console.log("ret is equal to " + ret);
     ret.setHours(0, 0, 0, 0);
     console.log("ret aterset hours " + ret);
-    if (ret.getDay() == 3) {
+    if (ret.getDay() == 4) {
       return ret;
     } else {
       ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
@@ -130,7 +130,7 @@ function signForSession (id) {
   var ret = new Date();
   ret.setHours(0, 0, 0, 0);
     console.log("ret aterset hours " + ret);
-    if (ret.getDay() == 4) {
+    if (ret.getDay() == 3) {
       ret = ret;
     } else {
       ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
