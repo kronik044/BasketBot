@@ -27,6 +27,8 @@ exports.handleMessage = function(req, res) {
         if (user != null) {
           if (event.message && event.message.text) {
           text = event.message.text;
+          var smth = user.name;
+          console.log("Got namefrom db " + smth);
 
           normalizedText = text.toLowerCase().replace(' ', '');
           
