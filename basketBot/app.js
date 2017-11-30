@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 var schedule = require('node-schedule');
 var User = require('./app/model/user');
-var Session = require('./app/model/user');
+var Session = require('./app/model/session');
 var apiController = require('./app/controller/api');
 
 var routes = require('./app/routes/index');
