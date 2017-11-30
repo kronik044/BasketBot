@@ -42,6 +42,9 @@ exports.handleMessage = function(req, res) {
               subscribeStatus(sender)
               break;
             case "ok":
+              var kok = new Date();
+              console.log(kok);
+              console.log(kok.toString());
               nextSession(sender, signForSession)
               break;
             case "help":
@@ -116,7 +119,7 @@ function nextSession(id, callback) {
     } else {
       ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
     }
-    console.log("nextSession prc " + id + "date " + ret)
+    console.log("nextSession prc " + id + "date " + ret.toString())
     callback(id,ret);
     //return ret;
 }
