@@ -34,9 +34,12 @@ mongoose.connect('mongodb://localhost/test', {
       console.error("Unable save user to users");
     } else {
       console.log('User saved successfully!');
+      testInsert();
     }
   });
 
+
+function testInsert () {
   Session.findOneAndUpdate({fb_id: "test_id"}, {fb_id: "test_id", name: "Session_test_name", session_type: "Basket", players: 10}, {upsert:true}, function(err, user) {
     if (err) {
       console.error("Unable save sessions");
@@ -44,6 +47,7 @@ mongoose.connect('mongodb://localhost/test', {
       console.log('Session saved successfully!');
     }
   });
+}
 /*
 var j = schedule.scheduleJob('0 0 * * *', function(){
 
