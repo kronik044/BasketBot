@@ -19,7 +19,7 @@ var sessionSchema = new Schema({
   name: String,
   session_type: {type: String, required: true},
   session_date: {type: Date, required:true},
-  players: {type: Number. required: true}
+  players: {type: Number, required: true}
 },
 {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
