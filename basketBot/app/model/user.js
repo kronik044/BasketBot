@@ -27,8 +27,8 @@ var sessionSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var User = mongoose.model('User', userSchema);
-var Session = mongoose.model('Session', sessionSchema);
+var User = mongoose.model('User', userSchema, 'users');
+var Session = mongoose.model('Session', sessionSchema, 'sessions');
 
 /*userSchema.pre('update', function(next) {
   console.log('pre save')
