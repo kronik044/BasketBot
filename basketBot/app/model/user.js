@@ -18,8 +18,8 @@ var sessionSchema = new Schema({
   fb_id: {type: String, required: true},
   name: String,
   session_type: {type: String, required: true},
-  session_date: {type: Date, required:true},
-  players: {type: Number, required: true}
+  session_date: {type: Date},
+  players: {type: Number}
 },
 {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
@@ -27,8 +27,8 @@ var sessionSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var User = mongoose.model('User', userSchema, 'users');
-var Session = mongoose.model('Session', sessionSchema, 'users');
+var User = mongoose.model('User', userSchema);
+var Session = mongoose.model('Session', sessionSchema);
 
 /*userSchema.pre('update', function(next) {
   console.log('pre save')
