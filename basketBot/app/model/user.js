@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// create a schemafor users
+// create a schema for users
 var userSchema = new Schema({
   name: String,
   fb_id: { type: String, required: true, unique: true },
@@ -13,9 +13,22 @@ var userSchema = new Schema({
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
 
+//create schema for sessions
+var sessionSchema = new Schema({
+  fb_id: {type: String, required: true},
+  name: String,
+  session_type: {type: String, required: true},
+  session_date: {type: Date, required:true},
+  players: {type: Number, required: true}
+},
+{
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+});
+
 // the schema is useless so far
 // we need to create a model using it
-var User = mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema, 'users');
+var Session = mongoose.model('Session', sessionSchema, 'users');
 
 /*userSchema.pre('update', function(next) {
   console.log('pre save')
@@ -34,3 +47,4 @@ var User = mongoose.model('User', userSchema);
 
 // make this available to our users in our Node applications
 module.exports = User;
+module.exports = Session;

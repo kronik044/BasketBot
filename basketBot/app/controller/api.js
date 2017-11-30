@@ -4,7 +4,7 @@ var properties = require('../config/properties.js')
 
 // if our user.js file is at app/models/user.js
 var User = require('../model/user');
-var Session = require('../model/session');
+var Session = require('../model/user');
 
 exports.tokenVerification = function(req, res) {
 	if (req.query['hub.verify_token'] === properties.facebook_challenge) {
