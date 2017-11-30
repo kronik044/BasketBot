@@ -137,7 +137,7 @@ function signForSession (id) {
   var newSession = new Session ({
     fb_id: id,
     name: "Test_Name",
-    session_type: "Basket",
+    session_type: "Football",
     players: 3,
     session_date: ret
   });
