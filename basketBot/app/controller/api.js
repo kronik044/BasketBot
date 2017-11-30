@@ -117,6 +117,7 @@ function nextSession(id, callback) {
       ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
     }
     callback(id,ret);
+    console.log("nextSession prc " + id + "date " ret);
     //return ret;
 }
 
