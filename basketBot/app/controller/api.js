@@ -122,12 +122,13 @@ function nextSession(date) {
 
 function signForSession (id) {
   console.log("SessionSaver cal started");
+  var dd = new Date();
   var newSession = new Session ({
     fb_id: id,
     name: "Test_Name",
     session_type: "Basket",
     players: 3
-    session_date: nextSession()
+    session_date: dd
   });
 
 
