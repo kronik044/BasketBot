@@ -142,12 +142,12 @@ function signForSession (id, playerName, msg) {
   switch (msg.substring(1,2)) {
     case "b":
       newSession.session_type = "Basketball"
-      newSession.players = msg.substring(2,3)
+      newSession.players = Number(msg.substring(2,3))
       tester(newSession)
       break;
     case "f":
       newSession.session_type = "Football"
-      newSession.players = msg.substring(2,3)
+      newSession.players = Number(msg.substring(2,3))
       tester(newSession)
       break;
     default:
