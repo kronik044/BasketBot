@@ -49,14 +49,15 @@ exports.handleMessage = function(req, res) {
                 signForSession(sender, userName, normalizedText)
                 break;
               case "help":
-                sendTextMessage(sender, "Available commands: \n \
-                  /subs - to reactivate your subscription \n \
-                  /substatus - get current subscription status \
-                  /unsub - deactivate subscription (no autoreminders) \n \
-                  something else here ")
+                sendTextMessage(sender, "Available commands: \n\n \
+                  /subs - to reactivate your subscription \n\n \
+                  /substatus - get current subscription status \n\n \
+                  /unsub - deactivate subscription (no autoreminders) \n\n \
+                  +Fx - signup for nearest Football (x is number of players 0-9) \n\n \
+                  +Bx - signup for nearest Basketball (x is number of players 0-9)")
                 break;
               default:
-                sendTextMessage(sender, "Hi! ")
+                sendTextMessage(sender, "Hi! " + userName + " seems you need to run 'help' command to see possibele actions.")
                 //getUserDetails(sender, subscribeUser)
               }
             }
@@ -71,7 +72,7 @@ exports.handleMessage = function(req, res) {
                 getUserDetails(sender, subscribeUser)
                 break;
               default:
-                sendTextMessage(sender, "Hi! You are not subscribed and only subscribed users may use this bot")
+                sendTextMessage(sender, "Hello!! I'm BasketBot. I'll help you to signup for Basket or Football sessions. If you know a correct passphrase :)")
                 break;
             }
           }
