@@ -132,7 +132,7 @@ function tester (testVar) {
 function signForSession (id, playerName, msg) {
   var ret = new Date();
   ret.setHours(0, 0, 0, 0);
-  if (ret.getDay() == 4) {
+  if (ret.getDay() == 5) {
     ret = ret;
   } else {
     ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
