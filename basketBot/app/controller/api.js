@@ -121,6 +121,7 @@ function tester (testVar) {
 
 function signForSession (id, playerName, msg) {
   console.log("SessionSaver call started");
+  console.log("id -" + id + "name " + playerName + "msg " + msg)
   var ret = new Date();
   ret.setHours(0, 0, 0, 0);
   console.log("ret aterset hours " + ret);
@@ -140,7 +141,7 @@ function signForSession (id, playerName, msg) {
 
   switch (msg.substring(1,2)) {
     case "b":
-      newSession.session_type = "Football"
+      newSession.session_type = "Basket"
       console.log("case checker " + newSession.session_type)
       tester(newSession)
       break;
@@ -148,6 +149,8 @@ function signForSession (id, playerName, msg) {
       //so smth else
       break;
   }
+
+  console.log("got there")
   
   /*Session.findOneAndUpdate({fb_id: newSession.fb_id}, {fb_id: newSession.fb_id, name: newSession.name, session_type: newSession.session_type, players: newSession.players, session_date: newSession.session_date}, {upsert:true}, function(err, user) {
     if (err) {
