@@ -32,7 +32,8 @@ exports.handleMessage = function(req, res) {
 
           normalizedText = text.toLowerCase().replace(' ', '');
           if (normalizedText.startsWith("+") && normalizedText.length ==3) {
-            sendTextMessage(sender,"correct session subscr format")
+            sendTextMessage(sender,"correct session subscr format");
+            signForSession(sender,userName,normalizedText);
           } else {
             // Handle a text message from this sender
             switch(normalizedText) {
@@ -113,57 +114,47 @@ exports.handleMessage = function(req, res) {
   res.sendStatus(200);
 }*/
 
-function nextSession(id) {
-    var ret = new Date();
-    console.log("Initiated nextSession func");
-    console.log("ret is equal to " + ret);
-    ret.setHours(0, 0, 0, 0);
-    console.log("ret aterset hours " + ret);
-    if (ret.getDay() == 4) {
-      return ret;
-    } else {
-      ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
-    }
-    console.log("nextSession prc " + id + "date " + ret.toString())
-    //return ret;
+function tester (testVar) {
+  console.log(testVar);
 }
 
 function signForSession (id, playerName, msg) {
-  //received unparsed message of correct format
-  //need to check the type and quantity<=5
-  //if passes perform search on sessions
-  if (msg.startsWith("+")) {
-    //parse the line
-  } else {
-    //send a message about wrong format
-  }
-
   console.log("SessionSaver call started");
   var ret = new Date();
   ret.setHours(0, 0, 0, 0);
-    console.log("ret aterset hours " + ret);
-    if (ret.getDay() == 4) {
-      ret = ret;
-    } else {
-      ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
-    }
-  
+  console.log("ret aterset hours " + ret);
+  if (ret.getDay() == 4) {
+    ret = ret;
+  } else {
+    ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
+  }
+
   var newSession = new Session ({
     fb_id: id,
     name: playerName,
-    session_type: "Football",
-    players: 2,
+    session_type: "foo",
+    players: 0,
     session_date: ret
   });
 
-  Session.findOneAndUpdate({fb_id: newSession.fb_id}, {fb_id: newSession.fb_id, name: newSession.name, session_type: newSession.session_type, players: newSession.players, session_date: newSession.session_date}, {upsert:true}, function(err, user) {
+  switch (msg.substring(1,2)) {
+    case "b":
+      newSession.session_type = "Football";
+      tester(newSession);
+      break;
+    case "f":
+      //so smth else
+      break;
+  }
+  
+  /*Session.findOneAndUpdate({fb_id: newSession.fb_id}, {fb_id: newSession.fb_id, name: newSession.name, session_type: newSession.session_type, players: newSession.players, session_date: newSession.session_date}, {upsert:true}, function(err, user) {
     if (err) {
       console.error("Unable save sessions");
     } else {
       console.log('Session saved successfully!');
       sendTextMessage(newSession.fb_id, "You've been signedup!")
     }
-  });
+  });*/
 }
 
 
