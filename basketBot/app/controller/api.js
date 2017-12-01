@@ -27,38 +27,38 @@ exports.handleMessage = function(req, res) {
         if (user != null) {
           if (event.message && event.message.text) {
           text = event.message.text;
-          var smth = user.name;
-          console.log("Got namefrom db " + smth);
+          var userName = user.name;
+          console.log("Got namefrom db " + userName);
 
           normalizedText = text.toLowerCase().replace(' ', '');
-          
-          // Handle a text message from this sender
-          switch(normalizedText) {
-            case "/subs":
-              getUserDetails(sender, subscribeUser)
-              break;
-            case "/unsub":
-              unsubscribeUser(sender)
-              break;
-            case "/substatus":
-              subscribeStatus(sender)
-              break;
-            case "ok":
-              signForSession(sender)
-              break;
-            case startsWith("+"):
-              sendTextMessage(sender, "Starts with + ")
-              break;
-            case "help":
-              sendTextMessage(sender, "Available commands: \n \
-                /subs - to reactivate your subscription \n \
-                /substatus - get current subscription status \
-                /unsub - deactivate subscription (no autoreminders) \n \
-                something else here ")
-              break;
-            default:
-              sendTextMessage(sender, "Hi! ")
-              //getUserDetails(sender, subscribeUser)
+          if (normalizedText.startsWith("+") && normalizedText.length ==3) {
+            sendTextMessage(sender,"correct session subscr format")
+          } else {
+            // Handle a text message from this sender
+            switch(normalizedText) {
+              case "/subs":
+                getUserDetails(sender, subscribeUser)
+                break;
+              case "/unsub":
+                unsubscribeUser(sender)
+                break;
+              case "/substatus":
+                subscribeStatus(sender)
+                break;
+              case "ok":
+                signForSession(sender, userName, normalizedText)
+                break;
+              case "help":
+                sendTextMessage(sender, "Available commands: \n \
+                  /subs - to reactivate your subscription \n \
+                  /substatus - get current subscription status \
+                  /unsub - deactivate subscription (no autoreminders) \n \
+                  something else here ")
+                break;
+              default:
+                sendTextMessage(sender, "Hi! ")
+                //getUserDetails(sender, subscribeUser)
+              }
             }
           }
         } else {
@@ -128,12 +128,21 @@ function nextSession(id) {
     //return ret;
 }
 
-function signForSession (id) {
-  console.log("SessionSaver cal started");
+function signForSession (id, playerName, msg) {
+  //received unparsed message of correct format
+  //need to check the type and quantity<=5
+  //if passes perform search on sessions
+  if (msg.startsWith("+")) {
+    //parse the line
+  } else {
+    //send a message about wrong format
+  }
+
+  console.log("SessionSaver call started");
   var ret = new Date();
   ret.setHours(0, 0, 0, 0);
     console.log("ret aterset hours " + ret);
-    if (ret.getDay() == 3) {
+    if (ret.getDay() == 4) {
       ret = ret;
     } else {
       ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
@@ -141,7 +150,7 @@ function signForSession (id) {
   
   var newSession = new Session ({
     fb_id: id,
-    name: "Test_Name",
+    name: playerName,
     session_type: "Football",
     players: 2,
     session_date: ret
