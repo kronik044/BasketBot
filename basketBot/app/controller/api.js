@@ -120,7 +120,7 @@ function writeSessionToDb (newSessionInfo) {
       console.error("Unable save sessions");
     } else {
       console.log('Session saved successfully!');
-      var normalisedSessionDate =  newSessionInfo.session_date.toLocalDateString("en-GB");
+      var normalisedSessionDate =  newSessionInfo.session_date.toLocaleDateString("en-GB");
       sendTextMessage(newSessionInfo.fb_id, "You've signed for " + newSessionInfo.session_type + " for " + normalisedSessionDate + " number of people " + newSessionInfo.players)
     }
   });
