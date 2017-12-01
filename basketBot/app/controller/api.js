@@ -115,6 +115,7 @@ exports.handleMessage = function(req, res) {
 }*/
 
 function tester (testVar) {
+  console.log("got here");
   console.log(testVar);
 }
 
@@ -140,6 +141,7 @@ function signForSession (id, playerName, msg) {
   switch (msg.substring(1,2)) {
     case "b":
       newSession.session_type = "Football";
+      console.log("case checker " + newSession.session_type);
       tester(newSession);
       break;
     case "f":
