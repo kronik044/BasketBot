@@ -46,6 +46,9 @@ exports.handleMessage = function(req, res) {
             case "ok":
               signForSession(sender)
               break;
+            case startsWith("+")
+              sendTextMessage(sender, "Starts with + ")
+              break;
             case "help":
               sendTextMessage(sender, "Available commands: \n \
                 /subs - to reactivate your subscription \n \
