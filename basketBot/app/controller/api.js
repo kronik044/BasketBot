@@ -32,7 +32,6 @@ exports.handleMessage = function(req, res) {
 
           normalizedText = text.toLowerCase().replace(' ', '');
           if (normalizedText.startsWith("+") && normalizedText.length ==3) {
-            sendTextMessage(sender,"correct session subscr format");
             signForSession(sender,userName,normalizedText);
           } else {
             // Handle a text message from this sender
