@@ -114,25 +114,25 @@ exports.handleMessage = function(req, res) {
   res.sendStatus(200);
 }*/
 
-function tester (testVar) {
+function writeSessionToDb (newSessionInfo) {
 
-  Session.findOneAndUpdate({fb_id: testVar.fb_id, session_type: testVar.session_type, session_date: testVar.session_date }, {fb_id: testVar.fb_id, name: testVar.name, session_type: testVar.session_type, players: testVar.players, session_date: testVar.session_date}, {upsert:true}, function(err, user) {
+  Session.findOneAndUpdate({fb_id: newSessionInfo.fb_id, session_type: newSessionInfo.session_type, session_date: newSessionInfo.session_date }, {fb_id: newSessionInfo.fb_id, name: newSessionInfo.name, session_type: newSessionInfo.session_type, players: newSessionInfo.players, session_date: newSessionInfo.session_date}, {upsert:true}, function(err, user) {
     if (err) {
       console.error("Unable save sessions");
     } else {
       console.log('Session saved successfully!');
-      sendTextMessage(testVar.fb_id, "You've been signedup!")
+      sendTextMessage(newSessionInfo.fb_id, "You've been signedup for " + )
     }
   });
 
   console.log("got here");
-  console.log(testVar);
+  console.log(newSessionInfo);
 }
 
 function signForSession (id, playerName, msg) {
   var ret = new Date();
   ret.setHours(0, 0, 0, 0);
-  if (ret.getDay() == 5) {
+  if (ret.getDay() == 4) {
     ret = ret;
   } else {
     ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
@@ -150,12 +150,12 @@ function signForSession (id, playerName, msg) {
     case "b":
       newSession.session_type = "Basketball"
       newSession.players = Number(msg.substring(2,3))
-      tester(newSession)
+      writeSessionToDb(newSession)
       break;
     case "f":
       newSession.session_type = "Football"
       newSession.players = Number(msg.substring(2,3))
-      tester(newSession)
+      writeSessionToDb(newSession)
       break;
     default:
       sendTextMessage(id,"Whoops, somethign went wrong")
