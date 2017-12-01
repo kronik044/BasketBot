@@ -115,16 +115,23 @@ exports.handleMessage = function(req, res) {
 }*/
 
 function tester (testVar) {
+
+  Session.findOneAndUpdate({fb_id: testVar.fb_id, session_type: testVar.session_type, session_date: testVar.session_date }, {fb_id: testVar.fb_id, name: testVar.name, session_type: testVar.session_type, players: testVar.players, session_date: testVar.session_date}, {upsert:true}, function(err, user) {
+    if (err) {
+      console.error("Unable save sessions");
+    } else {
+      console.log('Session saved successfully!');
+      sendTextMessage(testVar.fb_id, "You've been signedup!")
+    }
+  });
+
   console.log("got here");
   console.log(testVar);
 }
 
 function signForSession (id, playerName, msg) {
-  console.log("SessionSaver call started");
-  console.log("id -" + id + "name " + playerName + "msg " + msg)
   var ret = new Date();
   ret.setHours(0, 0, 0, 0);
-  console.log("ret aterset hours " + ret);
   if (ret.getDay() == 4) {
     ret = ret;
   } else {
