@@ -49,6 +49,9 @@ exports.handleMessage = function(req, res) {
                 signForSession(sender, userName, normalizedText)
                 break;
               case "help":
+                sendTextMessage2(sender, "testing quick reply")
+                break;
+              case "help":
                 sendTextMessage(sender, "Available commands: \n\n \
                   /subs - to reactivate your subscription \n\n \
                   /substatus - get current subscription status \n\n \
