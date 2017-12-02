@@ -28,7 +28,7 @@ exports.handleMessage = function(req, res) {
           if (event.message && event.message.text) {
           text = event.message.text;
           var userName = user.name;
-          console.log("Got namefrom db " + userName);
+          console.log("Message from user" + text);
 
           normalizedText = text.toLowerCase().replace(' ', '');
           if (normalizedText.startsWith("+") && normalizedText.length ==3) {
