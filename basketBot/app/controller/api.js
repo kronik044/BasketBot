@@ -257,7 +257,7 @@ function sendTextMessage2(recipientId, messageText) {
       {
         "content_type":"text",
         "title":"Basket +1",
-        "payload":"+b1",
+        "payload":"+b1"
         //"image_url":"http://example.com/img/red.png"
       }
     ]
