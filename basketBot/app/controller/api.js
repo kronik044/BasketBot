@@ -48,7 +48,7 @@ exports.handleMessage = function(req, res) {
               case "ok":
                 signForSession(sender, userName, normalizedText)
                 break;
-              case "help":
+              case "test":
                 sendTextMessage2(sender, "testing quick reply")
                 break;
               case "help":
