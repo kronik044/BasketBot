@@ -243,6 +243,27 @@ function subscribeStatus(id) {
   })
 }
 
+function sendTextMessage2(recipientId, messageText) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: messageText,
+      "quick_replies":[
+      {
+        "content_type":"text",
+        "title":"Basket +1",
+        "payload":"+b1",
+        //"image_url":"http://example.com/img/red.png"
+      }
+    ]
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
 function sendTextMessage(recipientId, messageText) {
   var messageData = {
     recipient: {
