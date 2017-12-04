@@ -295,30 +295,28 @@ function unsubscribeUser(id) {
 }
 
 function whoWillPlay (id) {
-  sessionDate = newSessionDate().then(function(resolve) {
-  return(resolve);
+  sessionDate = newSessionDate().then(function(sessionDate) {
+      Session.find({session_date:sessionDate}, function(err, users) {
+        if (err) {
+          console.log(err)
+        } else {
+          if (users != null) {
+            console.log("got Users " + users)
+            var playersList = [];
+            var total = 0;
+            users.forEach(function(user){
+              toArray = user.name + " " + user.players
+              console.log("details ===========" + toArray)
+              playersList.push(toArray);
+              total = parseInt(total) + parseInt(user.players);
+            })
+            playersList.push("Total : " + total)
+            prepMsg = playersList.join("\n")
+            sendTextMessage(id, prepMsg)
+          }
+        }
+      })
   });
-
-  Session.find({session_date:sessionDate}, function(err, users) {
-    if (err) {
-      console.log(err)
-    } else {
-      if (users != null) {
-        console.log("got Users " + users)
-        var playersList = [];
-        var total = 0;
-        users.forEach(function(user){
-          toArray = user.name + " " + user.players
-          console.log("details ===========" + toArray)
-          playersList.push(toArray);
-          total = parseInt(total) + parseInt(user.players);
-        })
-        playersList.push("Total : " + total)
-        prepMsg = playersList.join("\n")
-        sendTextMessage(id, prepMsg)
-      }
-    }
-  })
 }
 
 function subscribeStatus(id) {
