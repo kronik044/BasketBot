@@ -15,6 +15,68 @@ exports.tokenVerification = function(req, res) {
 }
 
 exports.handleMessage = function(req, res) {
+  messaging_events = req.body.entry[0].messaging;
+  for (i = 0; i < messaging_events.length; i++) {
+    event = req.body.entry[0].messaging[i];
+    sender = event.sender.id;
+    console.log("Message Received from client ");
+    if (event.message && event.message.text) {
+      //text do all processing
+      text = event.message.text;
+      normalizedText = text.toLowerCase().replace(' ', '');
+      User.findOne({fb_id: sender}, function(err, user) {
+        if (err) {
+          console.log(err)
+        } else {
+          if (user != null) {
+            userName = user.name;          
+            if (event.message.quick_reply) {
+              //process a quick reply
+              quickReplyPLoad = event.message.quick_reply.payload;
+              console.log("received payload " + quickReplyPLoad);
+            } else if (normalizedText.startsWith("+") && normalizedText.length ==3) {
+              //process session sign message
+              signForSession(sender,userName,normalizedText);
+            } else {
+              //process usual messages cases switch
+              // Handle a text message from this sender
+              switch(normalizedText) {
+                case "help":
+                  sendTextMessage(sender, "Available commands: \n\n \
+                    /subs - to reactivate your subscription \n\n \
+                    /substatus - get current subscription status \n\n \
+                    /unsub - deactivate subscription (no autoreminders) \n\n \
+                    +Fx - signup for nearest Football (x is number of players 0-9) \n\n \
+                    +Bx - signup for nearest Basketball (x is number of players 0-9)")
+                  break;
+                default:
+                  sendTextMessage(sender, "Hi! " + userName + " seems you need to run 'help' command to see possibele actions.")
+                  //getUserDetails(sender, subscribeUser)
+              }
+            } else {
+                //not a valid user
+              }
+          }
+        }
+      })
+    } else {
+      //not a text send generic message
+      switch(normalizedText) {
+        case "pass":
+          getUserDetails(sender, subscribeUser)
+          break;
+        default:
+          sendTextMessage(sender, "Hello!! I'm BasketBot. I'll help you to signup for Basket or Football sessions. If you know a correct passphrase :)")
+          break;
+      }
+    }
+    sendTextMessage(sender, "Hello!! not a pupported command")
+  }
+  res.sendStatus(200);
+}
+
+/*
+exports.handleMessage = function(req, res) {
 	messaging_events = req.body.entry[0].messaging;
 	for (i = 0; i < messaging_events.length; i++) {
 		event = req.body.entry[0].messaging[i];
@@ -89,37 +151,7 @@ exports.handleMessage = function(req, res) {
   }
 	res.sendStatus(200);
 }
-
-/*
-exports.handleMessage = function(req, res) {
-  messaging_events = req.body.entry[0].messaging;
-  for (i = 0; i < messaging_events.length; i++) {
-    event = req.body.entry[0].messaging[i];
-    sender = event.sender.id;
-    if (event.message && event.message.text) {
-        text = event.message.text;
-
-        normalizedText = text.toLowerCase().replace(' ', '');
-        
-        // Handle a text message from this sender
-        switch(normalizedText) {
-          case "/subscribe":
-            subscribeUser(sender)
-            break;
-          case "/unsubscribe":
-            unsubscribeUser(sender)
-            break;
-          case "/subscribestatus":
-            subscribeStatus(sender)
-            break;
-          default:
-            sendTextMessage(sender, "Hi! ")
-            //getUserDetails(sender, subscribeUser)
-          }
-      }
-    }
-  res.sendStatus(200);
-}*/
+*/
 
 function writeSessionToDb (newSessionInfo) {
 
