@@ -296,7 +296,7 @@ function whoWillPlay () {
         })
       }
     }
-  }
+  })
 }
 
 function subscribeStatus(id) {
