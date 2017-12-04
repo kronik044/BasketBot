@@ -294,7 +294,7 @@ function whoWillPlay (id) {
           console.log("details ===========" + toArray)
           playersList.push(toArray);
         })
-        sendTextMessage(id, playersList)
+        sendTextMessage(id, playersList.toString())
       }
     }
   })
