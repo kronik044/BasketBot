@@ -24,7 +24,7 @@ exports.handleMessage = function(req, res) {
       //text do all processing
       text = event.message.text;
       normalizedText = text.toLowerCase().replace(' ', '');
-      console.log("Message Received ----------- " + normalizedText);
+      console.log("Message Received -----------|| " + normalizedText);
       User.findOne({fb_id: sender}, function(err, user) {
         if (err) {
           console.log(err)
@@ -43,6 +43,15 @@ exports.handleMessage = function(req, res) {
               //process usual messages cases switch
               // Handle a text message from this sender
               switch(normalizedText) {
+                case "/subs":
+                  getUserDetails(sender, subscribeUser)
+                  break;
+                case "/unsub":
+                  unsubscribeUser(sender)
+                  break;
+                case "/substatus":
+                  subscribeStatus(sender)
+                  break;
                 case "help":
                   sendTextMessage(sender, "Available commands: \n\n \
                     /subs - to reactivate your subscription \n\n \
@@ -56,7 +65,6 @@ exports.handleMessage = function(req, res) {
                   break;
                 default:
                   sendTextMessage(sender, "Hi! " + userName + " seems you need to run 'help' command to see possibele actions.")
-                  //getUserDetails(sender, subscribeUser)
               }
             }
           } else {
