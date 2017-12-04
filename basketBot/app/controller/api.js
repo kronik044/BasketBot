@@ -35,7 +35,7 @@ exports.handleMessage = function(req, res) {
               //process a quick reply
               quickReplyPLoad = event.message.quick_reply.payload;
               console.log("received payload " + quickReplyPLoad);
-              signForSession(sender,userName,normalizedText);
+              signForSession(sender,userName,quickReplyPLoad);
             } else if (normalizedText.startsWith("+") && normalizedText.length ==3) {
               //process session sign message
               signForSession(sender,userName,normalizedText);
@@ -297,6 +297,12 @@ function sendTextMessage2(recipientId, messageText) {
         "content_type":"text",
         "title":"Basket +1",
         "payload":"+b1"
+        //"image_url":"http://example.com/img/red.png"
+      },
+      {
+        "content_type":"text",
+        "title":"Not Going",
+        "payload":"+b0"
         //"image_url":"http://example.com/img/red.png"
       }
     ]
