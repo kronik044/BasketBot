@@ -24,6 +24,7 @@ exports.handleMessage = function(req, res) {
       //text do all processing
       text = event.message.text;
       normalizedText = text.toLowerCase().replace(' ', '');
+      console.log("Message Received ----------- " + normalizedText);
       User.findOne({fb_id: sender}, function(err, user) {
         if (err) {
           console.log(err)
