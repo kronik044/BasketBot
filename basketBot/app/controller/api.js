@@ -35,6 +35,7 @@ exports.handleMessage = function(req, res) {
               //process a quick reply
               quickReplyPLoad = event.message.quick_reply.payload;
               console.log("received payload " + quickReplyPLoad);
+              signForSession(sender,userName,normalizedText);
             } else if (normalizedText.startsWith("+") && normalizedText.length ==3) {
               //process session sign message
               signForSession(sender,userName,normalizedText);
