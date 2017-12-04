@@ -290,7 +290,11 @@ function whoWillPlay () {
         console.log("got Users " + users)
         var playersList = [];
         users.forEach(function(user){
-          curPlayer = users.name + " " + users.players;
+          uname= users.name
+          pquantity = users.players
+          toArray = uname + " " pquantity
+          console.log("details ===========" + uname + pquantity + toArray)
+          curPlayer = toArray;
           playersList.push(curPlayer);
           console.log("myarray ===========" + playersList)
         })
