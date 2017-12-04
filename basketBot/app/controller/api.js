@@ -70,7 +70,6 @@ exports.handleMessage = function(req, res) {
           break;
       }
     }
-    sendTextMessage(sender, "Hello!! not a pupported command")
   }
   res.sendStatus(200);
 }
