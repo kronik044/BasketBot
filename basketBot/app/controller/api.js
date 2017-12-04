@@ -62,6 +62,10 @@ exports.handleMessage = function(req, res) {
       })
     } else {
       //not a text send generic message
+
+      text = event.message.text;
+      normalizedText = text.toLowerCase().replace(' ', '');
+      console.log("Message in bottom Received ----------- " + normalizedText);
       switch(normalizedText) {
         case "pass":
           getUserDetails(sender, subscribeUser)
