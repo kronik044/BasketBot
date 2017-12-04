@@ -72,7 +72,7 @@ exports.handleMessage = function(req, res) {
             }
           } else {
               //not a valid user
-             console.log("Message in bottom Received ----------- " + normalizedText);
+              console.log("Message in bottom Received ----------- " + normalizedText);
               switch(normalizedText) {
                 case "pass":
                   getUserDetails(sender, subscribeUser)

@@ -52,19 +52,16 @@ function testInsert () {
 }*/
 
 
-/*
-var j = schedule.scheduleJob('0 0 * * *', function(){
 
-    User.find({}, function(err, users) {
-        if (users != null) {
-          apiController.getArticles(function(err, articles) {
-            users.forEach(function(user){
-              apiController.sendArticleMessage(user.fb_id, articles[0])
-            });
-          })
-        }
+var j = schedule.scheduleJob('* * * * * *', function(){
+  User.find({}, function(err, users) {
+      if (users != null) {
+          users.forEach(function(user){
+            apiController.sendTextMessage2(user.fb_id, "Sign for next session?")
+          });
+      }
     });
-});*/
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
