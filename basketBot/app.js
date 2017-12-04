@@ -64,7 +64,23 @@ function testInsert () {
     });
 });*/
 
-var j = schedule.scheduleJob('*/1 * * * *', function(){
+
+var j = schedule.scheduleJob('*1 * * * *', function(){
+  User.find({}, function(err, users) {
+    if (err) {
+      console.log(err)
+    } else {
+        if (users != null) {
+          users.forEach(function(user){
+            apiController._sendTextMessage2(user.fb_id, "Sign for next session?")
+          });
+        }
+      }
+    });
+});
+
+/*
+var j = schedule.scheduleJob('*1 * * * *', function(){
   User.find({}, function(err, users) {
       if (users !== null) {
           users.forEach(function(user){
@@ -78,7 +94,7 @@ var j = schedule.scheduleJob('*/1 * * * *', function(){
           });
       }
     });
-});
+});*/
 
 
 
