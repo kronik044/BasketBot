@@ -167,19 +167,18 @@ exports.handleMessage = function(req, res) {
 }
 */
 
-function nextSessionDate () {
-return new Promise(
-  function (resolve, reject) {
+var newSessionDate = function() {
+  return new Promise(function(resolve, reject) {
     var ret = new Date();
-    ret.setHours(0, 0, 0, 0);
-    if (ret.getDay() == 4) {
-      ret = ret;
-    } else {
-      ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
-    }
-     resolve(ret);
-    });
-}
+  ret.setHours(0, 0, 0, 0);
+  if (ret.getDay() == 4) {
+    ret = ret;
+  } else {
+    ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
+  }
+    resolve(ret);
+  });
+};
 
 function writeSessionToDb (newSessionInfo) {
 
@@ -296,7 +295,9 @@ function unsubscribeUser(id) {
 }
 
 function whoWillPlay (id) {
-  sessionDate = nextSessionDate().then();
+  sessionDate = newSessionDate().then(function(resolve) {
+  return(resolve);
+  });
 
   Session.find({session_date:sessionDate}, function(err, users) {
     if (err) {
