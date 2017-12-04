@@ -65,7 +65,7 @@ function testInsert () {
 });*/
 
 
-var j = schedule.scheduleJob('*1 * * * *', function(){
+var j = schedule.scheduleJob('*/1 * * * *', function(){
   User.find({}, function(err, users) {
     if (err) {
       console.log(err)
