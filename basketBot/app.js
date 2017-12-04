@@ -53,17 +53,17 @@ function testInsert () {
 
 
 //*/1 * * * *
-/*
-var j = schedule.scheduleJob('*1 * * * *', function(){
+
+var j = schedule.scheduleJob('*/1 * * * *', function(){
   User.find({}, function(err, users) {
       if (users != null) {
           users.forEach(function(user){
-            apiController.sendTextMessage2(user.fb_id, "Sign for next session?")
+            apiController._sendTextMessage2(user.fb_id, "Sign for next session?")
           });
       }
     });
 });
-*/
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

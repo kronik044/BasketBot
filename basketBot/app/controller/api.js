@@ -380,3 +380,7 @@ function callSendAPI(messageData) {
     }
   });
 }
+
+exports._sendTextMessage2 = function(recipientId, messageText) {
+  sendTextMessage2(recipientId, messageText)
+}
