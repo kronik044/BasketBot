@@ -282,7 +282,15 @@ function unsubscribeUser(id) {
 }
 
 function whoWillPlay (id) {
-  Session.find({}, function(err, users) {
+  var ret = new Date();
+  ret.setHours(0, 0, 0, 0);
+  if (ret.getDay() == 4) {
+    ret = ret;
+  } else {
+    ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
+  }
+
+  Session.find({session_date:ret}, function(err, users) {
     if (err) {
       console.log(err)
     } else {
