@@ -167,6 +167,20 @@ exports.handleMessage = function(req, res) {
 }
 */
 
+function nextSessionDate () {
+return new Promise(
+  function (resolve, reject) {
+    var ret = new Date();
+    ret.setHours(0, 0, 0, 0);
+    if (ret.getDay() == 4) {
+      ret = ret;
+    } else {
+      ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
+    }
+     resolve(ret);
+    });
+}
+
 function writeSessionToDb (newSessionInfo) {
 
   Session.findOneAndUpdate({fb_id: newSessionInfo.fb_id, session_type: newSessionInfo.session_type, session_date: newSessionInfo.session_date }, {fb_id: newSessionInfo.fb_id, name: newSessionInfo.name, session_type: newSessionInfo.session_type, players: newSessionInfo.players, session_date: newSessionInfo.session_date}, {upsert:true}, function(err, user) {
@@ -282,15 +296,9 @@ function unsubscribeUser(id) {
 }
 
 function whoWillPlay (id) {
-  var ret = new Date();
-  ret.setHours(0, 0, 0, 0);
-  if (ret.getDay() == 4) {
-    ret = ret;
-  } else {
-    ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
-  }
+  sessionDate = nextSessionDate().then();
 
-  Session.find({session_date:ret}, function(err, users) {
+  Session.find({session_date:sessionDate}, function(err, users) {
     if (err) {
       console.log(err)
     } else {
