@@ -19,8 +19,8 @@ exports.handleMessage = function(req, res) {
 	for (i = 0; i < messaging_events.length; i++) {
 		event = req.body.entry[0].messaging[i];
 		sender = event.sender.id;
-    uPayload = event.message.quick_reply.payload;
-    console.log("received payload " + uPayload);
+    //uPayload = event.message.quick_reply.payload;
+    //console.log("received payload " + uPayload);
     console.log("Message Received from client ");
     User.findOne({fb_id: sender}, function(err, user) {
       if (err) {
