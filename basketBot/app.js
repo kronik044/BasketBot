@@ -53,7 +53,7 @@ function testInsert () {
 
 
 
-var j = schedule.scheduleJob('* * * * * *', function(){
+var j = schedule.scheduleJob('* * * * *', function(){
   User.find({}, function(err, users) {
       if (users != null) {
           users.forEach(function(user){
