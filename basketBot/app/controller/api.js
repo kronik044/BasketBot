@@ -329,7 +329,7 @@ exports.sendTextMessage2 = function(recipientId, messageText) {
       {
         "content_type":"text",
         "title":"Basket +1",
-        "payload":"+b1"
+        "payload":"+b1",
         "image_url":"../public/plus_one.png"
       },
       {
