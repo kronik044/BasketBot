@@ -197,47 +197,31 @@ function writeSessionToDb (newSessionInfo) {
 }
 
 function signForSession (id, playerName, msg) {
-  var ret = new Date();
-  ret.setHours(0, 0, 0, 0);
-  if (ret.getDay() == 4) {
-    ret = ret;
-  } else {
-    ret.setDate(ret.getDate() + (4 - 1 - ret.getDay() + 7) % 7 + 1);
-  }
+  sessionDate = newSessionDate().then(function(sessionDate) {
+    var newSession = new Session ({
+      fb_id: id,
+      name: playerName,
+      session_type: "foo",
+      players: 0,
+      session_date: sessionDate
+    });
 
-  var newSession = new Session ({
-    fb_id: id,
-    name: playerName,
-    session_type: "foo",
-    players: 0,
-    session_date: ret
-  });
-
-  switch (msg.substring(1,2)) {
-    case "b":
-      newSession.session_type = "Basketball"
-      newSession.players = Number(msg.substring(2,3))
-      writeSessionToDb(newSession)
-      break;
-    case "f":
-      newSession.session_type = "Football"
-      newSession.players = Number(msg.substring(2,3))
-      writeSessionToDb(newSession)
-      break;
-    default:
-      sendTextMessage(id,"Whoops, somethign went wrong")
-      break;
-  }
-
-  
-  /*Session.findOneAndUpdate({fb_id: newSession.fb_id}, {fb_id: newSession.fb_id, name: newSession.name, session_type: newSession.session_type, players: newSession.players, session_date: newSession.session_date}, {upsert:true}, function(err, user) {
-    if (err) {
-      console.error("Unable save sessions");
-    } else {
-      console.log('Session saved successfully!');
-      sendTextMessage(newSession.fb_id, "You've been signedup!")
+    switch (msg.substring(1,2)) {
+      case "b":
+        newSession.session_type = "Basketball"
+        newSession.players = Number(msg.substring(2,3))
+        writeSessionToDb(newSession)
+        break;
+      case "f":
+        newSession.session_type = "Football"
+        newSession.players = Number(msg.substring(2,3))
+        writeSessionToDb(newSession)
+        break;
+      default:
+        sendTextMessage(id,"Whoops, somethign went wrong")
+        break;
     }
-  });*/
+  });
 }
 
 
