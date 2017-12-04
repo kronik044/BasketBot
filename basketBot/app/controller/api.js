@@ -289,11 +289,14 @@ function whoWillPlay (id) {
       if (users != null) {
         console.log("got Users " + users)
         var playersList = [];
+        var total;
         users.forEach(function(user){
           toArray = user.name + " " + user.players
           console.log("details ===========" + toArray)
           playersList.push(toArray);
+          total++;
         })
+        playersList.push("Total" + total)
         prepMsg = playersList.join("\n")
         sendTextMessage(id, prepMsg)
       }
