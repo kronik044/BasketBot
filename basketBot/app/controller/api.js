@@ -330,7 +330,7 @@ exports.sendTextMessage2 = function(recipientId, messageText) {
         "content_type":"text",
         "title":"Basket +1",
         "payload":"+b1"
-        //"image_url":"http://example.com/img/red.png"
+        "image_url":"../public/plus_one.png"
       },
       {
         "content_type":"text",

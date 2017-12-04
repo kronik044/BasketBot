@@ -52,8 +52,9 @@ function testInsert () {
 }*/
 
 
-
-var j = schedule.scheduleJob('*/1 * * * *', function(){
+//*/1 * * * *
+/*
+var j = schedule.scheduleJob('*1 * * * *', function(){
   User.find({}, function(err, users) {
       if (users != null) {
           users.forEach(function(user){
@@ -62,6 +63,7 @@ var j = schedule.scheduleJob('*/1 * * * *', function(){
       }
     });
 });
+*/
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
