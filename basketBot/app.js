@@ -54,7 +54,7 @@ function testInsert () {
 
 //*/1 * * * *
 
-var j = schedule.scheduleJob('*1 * * * *', function(){
+/*var j = schedule.scheduleJob('*1 * * * *', function(){
   User.find({}, function(err, users) {
       if (users != null) {
           users.forEach(function(user){
@@ -62,23 +62,24 @@ var j = schedule.scheduleJob('*1 * * * *', function(){
           });
       }
     });
-});
+});*/
 
 var j = schedule.scheduleJob('*/1 * * * *', function(){
   User.find({}, function(err, users) {
-      if (users != null) {
+      if (users !== null) {
           users.forEach(function(user){
             Session.findOne({fb_id: user.fb_id}, function(err,sessions) {
-            if (sessions != null) {
-              sessions.forEach(function(session)) {
-                apiController._sendTextMessage2(session.fb_id, "Sign for next session? " + session.session_type)
-              }
+            if (sessions !== null) {
+              sessions.forEach(function(session){
+                apiController._sendTextMessage2(session.fb_id, "Sign for next session? " + session.session_type);
+              });
             }
-            })
+            });
           });
       }
     });
 });
+
 
 
 // uncomment after placing your favicon in /public
