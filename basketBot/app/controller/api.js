@@ -64,7 +64,7 @@ exports.handleMessage = function(req, res) {
                   sendTextMessage2(sender, "testing quick reply")
                   break;
                 case "ok":
-                  whoWillPlay()
+                  whoWillPlay(sender)
                   break;
                 default:
                   sendTextMessage(sender, "Hi! " + userName + " seems you need to run 'help' command to see possibele actions.")
@@ -281,7 +281,7 @@ function unsubscribeUser(id) {
   });
 }
 
-function whoWillPlay () {
+function whoWillPlay (id) {
   Session.find({}, function(err, users) {
     if (err) {
       console.log(err)
@@ -290,14 +290,11 @@ function whoWillPlay () {
         console.log("got Users " + users)
         var playersList = [];
         users.forEach(function(user){
-          uname= user.name
-          pquantity = user.players
-          toArray = uname + " " + pquantity
-          console.log("details ===========" + uname + pquantity + toArray)
-          curPlayer = toArray;
-          playersList.push(curPlayer);
-          console.log("myarray ===========" + playersList)
+          toArray = user.name + " " + user.players + "\n"
+          console.log("details ===========" + toArray)
+          playersList.push(toArray);
         })
+        sendTextMessage(id, playersList)
       }
     }
   })
