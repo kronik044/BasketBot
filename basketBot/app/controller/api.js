@@ -318,7 +318,7 @@ function subscribeStatus(id) {
   })
 }
 
-exports.sendTextMessage2 = function(recipientId, messageText) {
+function sendTextMessage2 (recipientId, messageText) {
   var messageData = {
     recipient: {
       id: recipientId
