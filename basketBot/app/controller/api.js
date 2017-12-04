@@ -288,6 +288,12 @@ function whoWillPlay () {
     } else {
       if (users != null) {
         console.log("got Users " + users)
+        var playersList = [];
+        users.forEach(function(user){
+          curPlayer = users.name + " " + users.players;
+          playersList.push(curPlayer);
+          console.log("myarray ===========" + playersList)
+         }
       }
     }
   })
