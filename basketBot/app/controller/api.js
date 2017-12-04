@@ -330,13 +330,13 @@ exports.sendTextMessage2 = function(recipientId, messageText) {
         "content_type":"text",
         "title":"Basket +1",
         "payload":"+b1",
-        "image_url":"../public/plus_one.png"
+        "image_url":"http://www.yoobgames.org/templates/silk/images_category/top-hot.png"
       },
       {
         "content_type":"text",
         "title":"Not Going",
-        "payload":"+b0"
-        //"image_url":"http://example.com/img/red.png"
+        "payload":"+b0",
+        "image_url":"https://yt3.ggpht.com/-hrBXV4VxWIU/AAAAAAAAAAI/AAAAAAAAAAA/I_C-iwx-zGM/s48-c-k-no-mo-rj-c0xffffff/photo.jpg"
       }
     ]
     }
