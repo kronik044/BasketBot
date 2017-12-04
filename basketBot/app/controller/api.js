@@ -293,10 +293,10 @@ function whoWillPlay () {
           curPlayer = users.name + " " + users.players;
           playersList.push(curPlayer);
           console.log("myarray ===========" + playersList)
-         }
+        })
       }
     }
-  })
+  }
 }
 
 function subscribeStatus(id) {
