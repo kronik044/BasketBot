@@ -53,10 +53,10 @@ exports.handleMessage = function(req, res) {
                   sendTextMessage(sender, "Hi! " + userName + " seems you need to run 'help' command to see possibele actions.")
                   //getUserDetails(sender, subscribeUser)
               }
-            } else {
+            }
+          } else {
                 //not a valid user
-              }
-          }
+            }
         }
       })
     } else {
