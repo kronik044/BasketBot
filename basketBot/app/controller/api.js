@@ -50,6 +50,9 @@ exports.handleMessage = function(req, res) {
                     +Fx - signup for nearest Football (x is number of players 0-9) \n\n \
                     +Bx - signup for nearest Basketball (x is number of players 0-9)")
                   break;
+                case "test":
+                  sendTextMessage2(sender, "testing quick reply")
+                  break;
                 default:
                   sendTextMessage(sender, "Hi! " + userName + " seems you need to run 'help' command to see possibele actions.")
                   //getUserDetails(sender, subscribeUser)
