@@ -290,11 +290,12 @@ function whoWillPlay (id) {
         console.log("got Users " + users)
         var playersList = [];
         users.forEach(function(user){
-          toArray = user.name + " " + user.players + "\n"
+          toArray = user.name + " " + user.players
           console.log("details ===========" + toArray)
           playersList.push(toArray);
         })
-        sendTextMessage(id, playersList.toString())
+        prepMsg = playersList.join("\n")
+        sendTextMessage(id, prepMsg)
       }
     }
   })
