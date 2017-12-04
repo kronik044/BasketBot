@@ -72,12 +72,26 @@ var j = schedule.scheduleJob('*/1 * * * *', function(){
     } else {
         if (users != null) {
           users.forEach(function(user){
-            apiController._sendTextMessage2(user.fb_id, "Sign for next session?")
+            Session.find({fb_id: user.fb_id}, function(err, sessions) {
+              if (err) {
+                console.log(err)
+              } else {
+                  if (sessions != null) {
+                    sessions.forEach(function(session){
+                      apiController._sendTextMessage2(session.fb_id, "Sign for next session? " + session.session_type)
+                    });
+                  }
+                }
+              });
           });
         }
       }
     });
 });
+
+
+  
+
 
 /*
 var j = schedule.scheduleJob('*1 * * * *', function(){
