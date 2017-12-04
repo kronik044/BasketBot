@@ -63,6 +63,9 @@ exports.handleMessage = function(req, res) {
                 case "test":
                   sendTextMessage2(sender, "testing quick reply")
                   break;
+                case "ok":
+                  whoWillPlay()
+                  break;
                 default:
                   sendTextMessage(sender, "Hi! " + userName + " seems you need to run 'help' command to see possibele actions.")
               }
@@ -276,6 +279,18 @@ function unsubscribeUser(id) {
       sendTextMessage(id, "You've been unsubscribed!")
     }
   });
+}
+
+function whoWillPlay () {
+  Session.find({}, function(err, users) {
+    if (err) {
+      console.log(err)
+    } else {
+      if (users != null) {
+        console.log("got Users " + users)
+      }
+    }
+  })
 }
 
 function subscribeStatus(id) {
