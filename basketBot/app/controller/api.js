@@ -63,7 +63,7 @@ exports.handleMessage = function(req, res) {
                 case "test":
                   sendTextMessage2(sender, "testing quick reply")
                   break;
-                case "ok":
+                case "who":
                   whoWillPlay(sender)
                   break;
                 default:
@@ -318,7 +318,7 @@ function subscribeStatus(id) {
   })
 }
 
-function sendTextMessage2(recipientId, messageText) {
+exports.sendTextMessage2 = funtion(recipientId, messageText) {
   var messageData = {
     recipient: {
       id: recipientId
